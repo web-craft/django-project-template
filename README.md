@@ -19,6 +19,9 @@ Compressing JS and CSS:
 
 - [Django Compressor](https://github.com/jezdez/django_compressor/)
 
+Migrations:
+
+- [South](http://south.aeracode.org/)
 
 ## References ##
 
