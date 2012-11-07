@@ -56,6 +56,7 @@ To bootstrap the project:
     cd path/to/{{ project_name }}
     install system-wide dependencies from requirements-system.txt
     $ python bootstrap.py
+    $ . env/bin/activate
     $ cp {{ project_name }}/settings/local.py.template {{project_name }}/settings/local.py
     adjust your local settings, such as database adapter in settings/local.py
     $ python manage.py syncdb
