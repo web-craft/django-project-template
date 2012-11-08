@@ -23,6 +23,7 @@ DATABASES = {
 }
 
 MEDIA_ROOT = '/path/to/media/'
+MEDIA_URL = '/media/'
 
 STATIC_ROOT = '/path/to/static/'
 

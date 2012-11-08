@@ -17,3 +17,10 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', direct_to_template, {'template': 'index.html'}),
 )
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^{0}/(?P<path>.*)$'.format(settings.MEDIA_URL.strip('/')), 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+    )
