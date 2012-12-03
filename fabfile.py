@@ -146,10 +146,10 @@ def deploy(verbosity='normal'):
     with hide(*hide_args):
         puts('Updating repository...')
         execute(update)
-        puts('Collecting static files...')
-        execute(collectstatic)
         puts('Synchronizing database...')
         execute(syncdb)
+        puts('Collecting static files...')
+        execute(collectstatic)
         puts('Restarting web server...')
         execute(restart)
 
