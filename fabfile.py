@@ -25,6 +25,7 @@ env.remote_ref = 'origin/master'
 env.requirements_file = 'requirements.txt'
 env.restart_command = 'supervisorctl restart {project_name}'.format(**env)
 env.restart_sudo = True
+env.forward_agent = True
 
 
 #==============================================================================
@@ -91,7 +92,7 @@ def bootstrap(action=''):
 
     sudo('virtualenv {virtualenv_dir} --system-site-packages'.format(**env))
     if not exists:
-        sudo('mkdir -p {0}'.format(posixpath.dirname(env.project_src_dir)))
+        sudo('mkdir -p {0}'.format(env.project_src_dir))
         with cd(env.project_src_dir):
             sudo('chown -R {user} .'.format(**env))
             run('git clone {repository} {project_src_dir}'.format(**env))
@@ -112,7 +113,7 @@ def bootstrap(action=''):
         #sudo('chown -R {0} /var/www/{project_name}'.format(system_user, **env))
 
     with cd(env.project_dir):
-        sudo('ln -sf {project_src_dir}/settings/ settings'.format(**env))
+        sudo('ln -sf {project_src_dir}/{project_name}/settings/ {project_dir}/settings'.format(**env))
         run('touch nginx.conf supervisor.conf')
         sudo('ln -sf {project_dir}/nginx.conf /etc/nginx/sites-enabled/{project_name}.conf'.format(**env))
         sudo('ln -sf {project_dir}/supervisor.conf /etc/supervisor/conf.d/{project_name}.conf'.format(**env))
