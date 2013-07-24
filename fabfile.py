@@ -1,9 +1,9 @@
 """
 Server pre-requirements
-    *   sudo apt-get install python python-virtualenv nginx supervisor gunicorn
+    *   sudo apt-get install python python-virtualenv nginx supervisor
     *   ssh-keygen - generate ssh key for readonly access to repository
 
-/srv/www/{{ project_name }}/ - source root
+/opt/{{ project_name }}/ - source root
       env/ - virtual environment
       src/ - git repository
       nginx.conf
@@ -43,10 +43,10 @@ def live():
         'db': [server],
     }
     env.system_users = {server: 'www-data'}
-    env.project_dir = '/srv/www/{project_name}'.format(**env)
-    env.project_src_dir = '/srv/www/{project_name}/src'.format(**env)
+    env.project_dir = '/opt/{project_name}'.format(**env)
+    env.project_src_dir = '/opt/{project_name}/src'.format(**env)
     env.virtualenv_dir = '{project_dir}/env/'.format(**env)
-    env.project_conf = '{project_name}.settings'.format(**env)
+    env.project_conf = 'settings'.format(**env)
 
 
 @task
