@@ -4,7 +4,7 @@ import os
 
 from django.conf import global_settings
 
-PROJECT_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG

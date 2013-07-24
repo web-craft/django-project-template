@@ -1,4 +1,4 @@
-from .settings.base import *
+from .base import *
 try:
     from .local import *
 except ImportError, e:
