@@ -1,4 +1,5 @@
 .idea
+celerybeat-schedule
 env
 *.pyc
-*/settings/local.py
+/settings/local.py
