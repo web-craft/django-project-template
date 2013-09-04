@@ -2,3 +2,5 @@ Django<1.6
 django-compressor==1.3
 BeautifulSoup<4.0
 South<0.9
+
+django-braces<2
