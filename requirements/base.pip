@@ -1,4 +1,5 @@
-Django<1.6
+Django<1.7
+
 django-compressor==1.3
 BeautifulSoup<4.0
 South<0.9
