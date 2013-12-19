@@ -19,7 +19,7 @@ import posixpath
 import re
 
 env.project_name = '{{ project_name }}'
-env.repository = 'git@bitbucket.org:biteabyte/{{ project_name }}.git'
+env.repository = 'git@github.com:web-craft/{{ project_name }}.git'
 env.local_branch = 'master'
 env.remote_ref = 'origin/master'
 env.requirements_file = 'requirements/base.pip'
