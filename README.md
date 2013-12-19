@@ -4,16 +4,16 @@
 
 This template provides sane defaults for new Django projects based on established best practices. To use django-project-template run the following command:
 
-    django-admin.py startproject --template=https://bitbucket.org/biteabyte/django-project-template/get/master.zip --extension=py,md PROJECT_NAME
+    django-admin.py startproject --template=https://github.com/web-craft/django-project-template/archive/master.zip --extension=py,md PROJECT_NAME
 
-Note: Django version 1.4 or greater is required.
+Note: Django version 1.6 or greater is required.
 
 
 ## Features ##
 
 By default, this template includes:
 
-A set of basic templates built from HTML5 Boilerplate 4.0.1 and Twitter Bootstrap 2.2.1.
+A set of basic templates built from HTML5 Boilerplate 4.0.1 and Twitter Bootstrap 3.0.
 
 Compressing JS and CSS:
 
