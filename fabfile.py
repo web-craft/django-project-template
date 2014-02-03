@@ -9,9 +9,6 @@ Server pre-requirements
       nginx.conf
       supervisor.conf
 
-/var/www/{{ project_name }}/ - document root
-      media/
-      static/
 """
 from fabric.api import task, env, run, local, roles, cd, execute, hide, puts,\
     sudo
@@ -24,6 +21,7 @@ env.local_branch = 'master'
 env.remote_ref = 'origin/master'
 env.requirements_file = 'requirements/base.pip'
 env.restart_command = 'supervisorctl restart {project_name}'.format(**env)
+env.bower_file = 'bower.json'
 env.restart_sudo = True
 env.forward_agent = True
 
@@ -151,6 +149,15 @@ def deploy(verbosity='normal'):
         execute(syncdb)
         puts('Collecting static files...')
         execute(collectstatic)
+#        puts('Bower install')
+#        execute(bower, 'install --allow-root')
+
+#        puts('Optimize pngs...')
+#        execute(compress)
+
+#        puts('Compress css/js files...')
+#        execute(compress)
+
         puts('Restarting web server...')
         execute(restart)
 
@@ -202,6 +209,45 @@ def collectstatic():
 
 
 @task
+@roles('web')
+def bower(command):
+    with cd(env.project_src_dir):
+        run('bower ' + command)
+
+@task
+@roles('web')
+def collectstatic():
+    """
+    Collect static files from apps and other locations in a single location.
+    """
+    with cd(env.project_src_dir):
+        dj('collectstatic --noinput')
+
+    with cd('{static_dir}'.format(**env)):
+        fix_permissions()
+
+@task
+@roles('web')
+def optipng():
+    # optimize png images
+    with cd('{static_dir}'.format(**env)):
+        run("""METHOD=113
+for file in `find . -name *.png`; do
+    echo "optimize $file ..."
+    optipng -quiet $file
+done""")
+
+
+@task
+@roles('db')
+def compress():
+    """
+    Compress static files.
+    """
+    with cd(env.project_src_dir):
+        dj('compress')
+
+@task
 @roles('db')
 def syncdb(sync=True, migrate=True):
     """
@@ -229,7 +275,7 @@ def requirements():
     """
     Update the requirements.
     """
-    run('{virtualenv_dir}/bin/pip install -r {project_src_dir}/requirements.txt'\
+    run('{virtualenv_dir}/bin/pip install -r {project_src_dir}/{requirements_file}'\
     .format(**env))
     #    with cd('{virtualenv_dir}/src'.format(**env)):
     #        with hide('running', 'stdout', 'stderr'):
